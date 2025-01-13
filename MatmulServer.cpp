@@ -136,8 +136,6 @@ int main() {
                 }
             }
 
-            setMatrixTo0(matrixC, matrixARows, matrixBCols);
-
             if (algorithm == 0) {
                 context->active_threads.emplace_back(iterative, matrixA, matrixB, matrixC, matrixARows, matrixBRows, matrixBCols,
                                                     numThreads, connection, ref(*context));
@@ -153,9 +151,9 @@ int main() {
                         }
                     }
                     context->processing = false;
-                    freeMatrix(matrixA, matrixARows);
-                    freeMatrix(matrixB, matrixBRows);
-                    freeMatrix(matrixC, matrixARows);
+                    freeMatrix(matrixA);
+                    freeMatrix(matrixB);
+                    freeMatrix(matrixC);
 
                     json msg;
                     msg["state"] = "STAND_BY";

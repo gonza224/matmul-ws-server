@@ -191,9 +191,9 @@ namespace MatrixMultiplication {
             }
         }
         context.processing = false;
-        freeMatrix(matrixA, matrixARows);
-        freeMatrix(matrixB, matrixBRows);
-        freeMatrix(matrixC, matrixARows);
+        freeMatrix(matrixA);
+        freeMatrix(matrixB);
+        freeMatrix(matrixC);
 
         json msg;
         msg["state"] = "STAND_BY";
@@ -293,9 +293,9 @@ namespace MatrixMultiplication {
         }
 
         context.processing = false;
-        freeMatrix(matrixA, rows);
-        freeMatrix(matrixB, rows);
-        freeMatrix(matrixC, rows);
+        freeMatrix(matrixA);
+        freeMatrix(matrixB);
+        freeMatrix(matrixC);
 
         json msg;
         msg["state"] = "STAND_BY";
@@ -304,24 +304,16 @@ namespace MatrixMultiplication {
 
     int** allocateMatrix(int rows, int cols) {
         int** matrix = new int*[rows];
-        for (int i = 0; i < rows; i++) {
-            matrix[i] = new int[cols];
+        matrix[0] = new int[rows * cols]();
+
+        for (int i = 1; i < rows; ++i) {
+            matrix[i] = matrix[0] + i * cols;
         }
         return matrix;
     }
 
-    void freeMatrix(int** matrix, int rows) {
-        for (int i = 0; i < rows; i++) {
-            delete[] matrix[i];
-        }
+    void freeMatrix(int** matrix) {
+        delete[] matrix[0];
         delete[] matrix;
-    }
-
-    void setMatrixTo0(int** matrix, int rows, int cols) {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                matrix[i][j] = 0;
-            }
-        }
     }
 }

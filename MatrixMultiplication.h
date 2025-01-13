@@ -19,8 +19,7 @@ namespace MatrixMultiplication {
     int parDot(int** matrixA, int i, int** matrixB, int j, int length, int writeThreadNum, int numThreads, MatrixContext &context);
 
     int** allocateMatrix(int rows, int cols);
-    void freeMatrix(int** matrix, int rows);
-    void setMatrixTo0(int** matrix, int rows, int cols);
+    void freeMatrix(int** matrix);
 }
 
 #endif
